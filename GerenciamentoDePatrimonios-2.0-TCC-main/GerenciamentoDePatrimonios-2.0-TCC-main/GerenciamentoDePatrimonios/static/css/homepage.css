@@ -1,0 +1,145 @@
+
+.subtitlesHomepage {
+    font-size: 2rem; /* Unidades relativas */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    margin: 0;
+}
+
+.subtitlesHomepage2 {
+    font-size: 1.5rem; /* Unidades relativas */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    margin: 0 0 2rem 0; /* Unidades relativas */
+}
+
+.img-homepage {
+    max-width: 100%; /* Ajusta a imagem ao tamanho do container */
+}
+
+.itensHomepage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8%;
+    margin-right: 20;
+}
+
+.iconHomepage {
+    margin-left: 15%;
+    display: flex;
+}
+
+.TransparentBlackButton-component {
+    margin-top: 10px;
+    padding: 12px 10%; /* Usa percentual para melhor adaptação */
+    font-weight: bold;
+    border: 3px solid var(--textBorder-color);
+    border-radius: 10px;
+    margin-right: 44px;
+    font-family: sans-serif;
+    color: var(--text-color);
+    font-size: 1.5rem; /* Unidades relativas */
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.TransparentBlackButton-component:hover {
+    transform: scale(1.1); /* Aumenta o botão em 10% */
+    color: var(--color-logo-gradB); /* Opcional: Muda a cor do texto ao passar o mouse */
+    border: 3px solid var(--color-logo-gradB);
+}
+
+
+
+.titleHomepage {
+    font-size: 100px;
+    font-weight: bold;
+    font-family: Poppins;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: linear-gradient(to right, var(--color-logo-gradA), var(--color-logo-gradB));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+/* Estilos responsivos */
+@media (max-width: 1200px) {
+    .titleHomepage {
+        font-size: 4rem;
+    }
+
+    .subtitlesHomepage {
+        font-size: 1.8rem;
+    }
+
+    .subtitlesHomepage2 {
+        font-size: 1.2rem;
+    }
+
+    .TransparentBlackButton-component {
+        padding: 12px 8%;
+        font-size: 1.3rem;
+    }
+
+    .itensHomepage {
+        justify-content: center; /* Centraliza os itens */
+    }
+}
+
+@media (max-width: 768px) {
+    .titleHomepage {
+        font-size: 3rem;
+    }
+
+    .subtitlesHomepage {
+        font-size: 1.5rem;
+    }
+
+    .subtitlesHomepage2 {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .TransparentBlackButton-component {
+        padding: 10px 6%;
+        font-size: 1.2rem;
+    }
+
+    .itensHomepage {
+        flex-direction: column; /* Muda a direção para coluna em telas menores */
+        text-align: center; /* Centraliza o texto em telas menores */
+        align-items: center; /* Centraliza itens na coluna */
+    }
+
+    .iconHomepage {
+        margin-top: 2rem;
+        font-size: 2rem; /* Ajusta o tamanho do ícone em telas menores */
+    }
+}
+
+/* Estilos adicionais para telas ainda menores */
+@media (max-width: 650px) {
+    .titleHomepage {
+        font-size: 2.5rem; /* Reduz ainda mais o tamanho do título */
+    }
+
+    .subtitlesHomepage {
+        font-size: 1.2rem; /* Ajusta o tamanho dos subtítulos */
+    }
+
+    .TransparentBlackButton-component {
+        font-size: 1.2rem; /* Ajusta o tamanho do texto do botão */
+        margin-left: 50px;
+    }
+
+    .itensHomepage {
+        margin-top: 60%;
+    }
+
+    .iconHomepage {
+       display: none;
+    }
+}

@@ -1,0 +1,85 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block body %}
+
+{% include "navbarAutenticado.html" %}
+<div class="body-homepage">
+    <header class="cabecalho-welcome" >
+        <div class="conteudo-cabecalho">
+            <h1>Bem-vindo ao <span class="destaque"> <br> Patrimônios </span> & <span class="destaque">Ordem</span></h1>
+            <p>Sua solução definitiva para gerenciar patrimônios de maneira eficiente e organizada.</p>
+            {% if is_coordenador %}
+            <a href="{% url 'cadastroUsuario' %}">
+                <button class="botao-cadastro">Cadastre-se</button>
+            </a>
+            {% endif %}
+
+        </div>
+        <div class="box">
+            <img src="{% static 'img/icon1.png' %}" alt="">
+        </div>
+    </header>
+
+    <section class="servicos">
+        
+        <h2>Serviços</h2>
+        <div class="container-servicos">
+
+            <!-- Card de Editar Patrimônios, visível apenas para Coordenadores -->
+            {% if is_coordenador %} 
+            <div class="cartao-servico">
+                <div class="div-cartao">
+                    <span class="material-symbols-outlined"> group </span>
+                    <h3>Usuários</h3>
+                    <p>Administre todos os usuários que acessam o software de forma eficiente.</p>
+                </div>
+                <a href="usuarios">
+                    <button class="button-view">Ver</button>
+                </a>
+            </div>
+
+            <!-- Card de Excluir Patrimônio -->
+            <div class="cartao-servico">
+                <div class="div-cartao">
+                    <span class="material-symbols-outlined"> edit_note </span>
+                    <h3>Itens</h3>
+                    <p>Exclua patrimônios desnecessários e adicione novos conforme necessário.</p>
+                </div>
+                <a href="itens">
+                    <button class="button-view">Ver</button>
+                </a>
+            </div>
+            {% endif %}
+
+            <!-- Card de Adicionar à lista de manutenção, visível para Coordenadores e Professores -->
+
+
+            <!-- Card de Ver Tabela de Patrimônios, visível para todos -->
+            {% if is_coordenador or is_professor %}
+            <div class="cartao-servico">
+                <div class="div-cartao">
+                    <span class="material-symbols-outlined"> data_table </span>
+                    <h3>Salas</h3>
+                    <p>Gerencie suas salas de maneira prática e eficiente, garantindo uma organização otimizada para atender às suas necessidades administrativas.</p>
+                </div>
+                <a href="salas">
+                    <button class="button-view">Ver</button>
+                </a>
+            </div>
+            {% endif %}
+
+        </div>
+    </section>
+
+
+    
+
+
+
+    
+    {% include "footer.html" %}
+
+</div>
+
+{% endblock %}

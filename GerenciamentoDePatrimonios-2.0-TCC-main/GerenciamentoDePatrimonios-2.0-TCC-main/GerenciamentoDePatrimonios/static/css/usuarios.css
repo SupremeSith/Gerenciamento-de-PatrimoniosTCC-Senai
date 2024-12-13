@@ -1,0 +1,186 @@
+
+
+
+/* Responsividade geral */
+.body-users {
+    display: flex;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    justify-content: center;
+}
+
+.container-users {
+    max-width: 100%;
+    padding: 20px;
+    background-color: var(--bg-color);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.28);
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.lista-user-h1 {
+    text-align: center;
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+}
+
+.user-table-container {
+    width: 100%;
+    overflow-x: auto; /* Permite rolagem horizontal para dispositivos menores */
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.user-table th,
+.user-table td {
+    padding: 15px 30px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-table th {
+    background-color: #b01818;
+    color: #fff;
+}
+
+.user-table td {
+    background-color: var(--bg-color);
+}
+
+/* Botões de edição e exclusão */
+.edit-btn-users,
+.delete-btn-users {
+    padding: 8px 12px;
+    color: white;
+    background-color: #b01818;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin: 5px;
+}
+
+.edit-btn-users:hover,
+.delete-btn-users:hover {
+    background-color: #8b0000;
+}
+
+/* Modal */
+.modal-users {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: black;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-content-users {
+    background-color: var(--modal-color);
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    box-sizing: border-box;
+}
+.modal-content-users h2{
+    color: var(--text-color);
+}
+.modal-content-users p{
+    color: var(--text-color);
+}
+.modal-content-users label{
+    color: var(--text-color);
+}
+.modal-content-users input{
+    color: var(--text-color);
+    background-color: transparent;
+}
+
+.close-users {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 40px;
+    cursor: pointer;
+    color: #b01818;
+}
+
+.save-btn-users {
+    background-color: #b01818;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+.save-btn-users:hover {
+    background-color: #8b0000;
+}
+
+.modal-title-users {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: black;
+}
+
+/* Responsividade para dispositivos menores */
+
+/* De 1024px para baixo */
+@media (max-width: 1024px) {
+    .body-users{
+        margin-top: 100px;
+    }
+    .modal-content-users {
+        width: 90%;
+        max-width: 500px;
+    }
+
+    .user-table th, .user-table td {
+        padding: 12px;
+        font-size: 0.9em;
+    }
+}
+
+/* Tabela responsiva com rolagem horizontal */
+.user-table-container {
+    overflow-x: auto;
+}
+
+/* Ocultar colunas específicas em telas pequenas */
+@media (max-width: 768px) {
+    .user-table th:nth-child(2), /* Sobrenome */
+    .user-table td:nth-child(2),
+    .user-table th:nth-child(5), /* Função */
+    .user-table td:nth-child(5) {
+        display: none; /* Oculta a coluna */
+    }
+}
+
+/* Melhor ajuste de tamanho para botões e texto em telas menores */
+@media (max-width: 480px) {
+    .edit-btn-users,
+    .delete-btn-users {
+        font-size: 0.8em;
+        padding: 6px 10px;
+    }
+
+    .user-table th, .user-table td {
+        font-size: 0.8em;
+        padding: 10px;
+    }
+}

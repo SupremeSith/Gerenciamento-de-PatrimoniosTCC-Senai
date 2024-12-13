@@ -1,0 +1,116 @@
+{% load static %}
+
+<!-- Navbar -->
+<header>
+    <nav class="navbarAllItens">
+        <div class="logo-component">
+            <a href="/">
+                <!--Link da imagem-->
+                <img src="{% static 'img/senaiLogoNoBack.png' %}" alt="Logo" class="logoImage-Component">
+            </a>
+        </div>
+      <div class="mobile-menu">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+      <ul class="nav-list">
+        <a id="theme-toggle" class="IconButton-homepage">
+            <span class="material-symbols-outlined darkModeHomepage">contrast</span>
+        </a>
+        <li><a href="{% url 'welcomeHomepage' %}" class="faqButton-component">Home</a></li>
+        {% if is_coordenador %}
+        <li><a href="{% url 'itens' %}" class="faqButton-component">Itens</a></li>
+        {% endif %}
+        <li><a href="{% url 'salas' %}" class="faqButton-component">Salas</a></li>
+        <li><a href="{% url 'profile' %}" class="faqButton-component">Perfil</a></li>
+        {% if is_coordenador %}
+        <li><a href="{% url 'gerenciar_usuarios' %}" class="faqButton-component">Usuários</a></li>
+        {% endif %}
+        <li><a href="#" class="PrimaryButton-component" id="logout-btn">Sair</a></li>
+        
+      </ul>
+    </nav>
+  </header>
+  <div id="confirmLogoutModal" class="modal2" style="display: none;">
+    <div class="modal-content2">
+        <h3>Você realmente deseja sair?</h3>
+        <div class="modal-buttons2">
+            <button class="modal-btn2 modal-confirm2" id="confirm-logout-btn">Desconectar</button>
+            <button class="modal-btn2 modal-cancel2" id="cancel-btn">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+  <script>
+class MobileNavbar {
+  constructor(mobileMenu, navList, navLinks) {
+    this.mobileMenu = document.querySelector(mobileMenu);
+    this.navList = document.querySelector(navList);
+    this.navLinks = document.querySelectorAll(navLinks);
+    this.activeClass = "active";
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  animateLinks() {
+    this.navLinks.forEach((link, index) => {
+      link.style.animation
+        ? (link.style.animation = "")
+        : (link.style.animation = `navLinkFade 0.5s ease forwards ${
+            index / 7 + 0.3
+          }s`);
+    });
+  }
+
+  handleClick() {
+  this.navList.classList.toggle(this.activeClass);
+  this.mobileMenu.classList.toggle(this.activeClass);
+  document.body.classList.toggle("nav-open"); // Impede scroll ao abrir menu
+  this.animateLinks();
+}
+
+
+  addClickEvent() {
+    this.mobileMenu.addEventListener("click", this.handleClick);
+  }
+
+  init() {
+    if (this.mobileMenu) {
+      this.addClickEvent();
+    }
+    return this;
+  }
+}
+
+const mobileNavbar = new MobileNavbar(
+  ".mobile-menu",
+  ".nav-list",
+  ".nav-list li",
+);
+mobileNavbar.init();
+
+    // Executar o logout ao confirmar
+    document.getElementById("confirm-logout-btn").onclick = function () {
+        window.location.href = "/logout/";  // Ajuste a rota conforme necessário
+    };
+
+    document.getElementById("logout-btn").addEventListener("click", function (event) {
+        event.preventDefault();
+        document.getElementById("confirmLogoutModal").style.display = "flex";
+    });
+
+    document.getElementById("cancel-btn").addEventListener("click", function () {
+        document.getElementById("confirmLogoutModal").style.display = "none";
+    });
+
+    // Fechar a modal se clicar fora dela
+    window.onclick = function (event) {
+        if (event.target === document.getElementById("confirmLogoutModal")) {
+            document.getElementById("confirmLogoutModal").style.display = "none";
+        }
+    }
+    document.getElementById("hamburger-menu").addEventListener("click", function () {
+    document.querySelector(".navbarComplete-component").classList.toggle("active");
+    });
+  </script>

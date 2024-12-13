@@ -1,0 +1,22 @@
+.vetorFormas-Component {
+    position: fixed; /* Fixa a imagem na posição desejada */
+    bottom: 0; /* Posiciona a imagem na parte inferior da tela */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translateX(-50%); /* Ajusta a centralização */
+    
+    width: 100%; /* Faz a imagem ocupar a largura completa da tela */
+    height: auto; /* Mantém a proporção da imagem */
+    
+    max-width: 100%; /* Limita o tamanho máximo ao 100% da largura da tela */
+    z-index: -1; /* Coloca a imagem atrás de outros elementos, se necessário */
+}
+
+/* Estilos responsivos */
+@media (max-width: 1200px) {
+    .vetorFormas-Component {
+        bottom: 0;
+        width: 100%; /* Certifica que a imagem ocupe a largura completa da tela */
+        height: auto;
+    }
+}
+

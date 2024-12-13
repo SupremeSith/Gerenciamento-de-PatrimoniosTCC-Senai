@@ -1,0 +1,210 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  .logoImage-Component {
+    width: 176px;
+    height: 45px;
+}
+
+  
+  a:hover {
+    opacity: 0.7;
+  }
+  body {
+    overflow-x: hidden!important; /* Sempre evita rolagem lateral */
+  }
+  
+
+
+  .logo {
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+  }
+  .modal2 {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    font-family: 'poppins';
+}
+.modal-content2 {
+    background-color: var(--modal-color);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+}
+.modal-content2 h3{
+    color: var(--text-color);
+}
+.modal-buttons2 {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.modal-btn2 {
+    padding: 10px ;
+    border: none;
+    text-align: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    width: 48%; /* Tamanho igual para os dois botões */
+}
+.modal-confirm2 {
+    background-color: #781010;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+.modal-confirm2:hover {
+    background-color: #000000;
+}
+.modal-cancel2 {
+    background-color: gray;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+.modal-cancel2:hover {
+    background-color: #000000;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  background-color: #b01818;
+  height: 8vh;
+  border-radius: 0 0 20px 20px;
+
+}
+
+  
+  main {
+    background: url("bg.jpg") no-repeat center center;
+    background-size: cover;
+    height: 92vh;
+  }
+  
+  .IconButton-homepage {
+    text-decoration: none;
+    color: white; /* Cor baseada no tema */
+    transition: color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.IconButton-homepage:hover {
+    color: black;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+  .nav-list {
+    list-style: none;
+    display: flex;
+    z-index: 100000;
+  }
+  
+  .nav-list li {
+    letter-spacing: 3px;
+    margin-left: 32px;
+  }
+  
+  .mobile-menu {
+    display: none;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  
+  .mobile-menu div {
+    width: 32px;
+    height: 2px;
+    background: #fff;
+    margin: 8px;
+    transition: 0.3s;
+  }
+  
+  @media (max-width: 999px) {
+    body {
+      overflow-x: hidden;
+    }
+    nav{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+      background-color: #b01818;
+      height: 8vh;
+      border-radius: 0 0 20px 20px;
+      position: fixed; /* Fixar no topo */
+      top: 0; /* Definir no topo */
+      width: 100%; /* Preencher a largura da tela */
+      z-index: 1000; /* Garantir que a navbar esteja acima de outros elementos */
+      border-radius: 0 0 0 0;
+    }
+
+    .nav-list {
+      position: fixed;
+      top: 8vh;
+      right: -100%; /* Esconde fora da viewport */
+      width: 50vw;
+      height: 92vh;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      background-color: #a00; /* Exemplo de cor */
+      transition: right 0.3s ease-in-out;
+      z-index: 100; /* Certifique-se de que está acima de outros elementos */
+    }
+    .nav-list.active {
+      right: 0; /* Move para dentro da viewport */
+    }
+    .nav-list li {
+      margin-left: 0;
+      opacity: 0;
+    }
+    .mobile-menu {
+      display: block;
+    }
+  }
+  
+  .nav-list.active {
+    transform: translateX(0);
+  }
+  
+  @keyframes navLinkFade {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .mobile-menu.active .line1 {
+    transform: rotate(-45deg) translate(-8px, 8px);
+  }
+  
+  .mobile-menu.active .line2 {
+    opacity: 0;
+  }
+  
+  .mobile-menu.active .line3 {
+    transform: rotate(45deg) translate(-5px, -7px);
+  } 

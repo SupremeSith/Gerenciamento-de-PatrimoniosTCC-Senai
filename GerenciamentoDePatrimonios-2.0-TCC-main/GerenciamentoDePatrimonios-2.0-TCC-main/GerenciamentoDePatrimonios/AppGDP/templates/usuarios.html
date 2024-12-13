@@ -1,0 +1,111 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block body %}
+{% include "navbarAutenticado.html" %}
+<link rel="stylesheet" href="{% static 'css/usuarios.css' %}">
+<div class="body-users">
+    <div class="container-users">
+        <h1 class="lista-user-h1">Lista de Usuários</h1>
+        <div class="user-table-container">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Sobrenome</th>
+                        <th>Usuário</th>
+                        <th>Email</th>
+                        <th>Função</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario_info in usuarios_info %}
+                    <tr>
+                        <td>{{ usuario_info.user.first_name }}</td>
+                        <td>{{ usuario_info.user.last_name }}</td>
+                        <td>{{ usuario_info.user.username }}</td>
+                        <td>{{ usuario_info.user.email }}</td>
+                        <td>{{ usuario_info.role }}</td>
+                        <td>
+                            <button class="edit-btn-users" onclick="openEditModal('{{ usuario_info.user.id }}', '{{ usuario_info.user.first_name }}', '{{ usuario_info.user.last_name }}', '{{ usuario_info.user.username }}', '{{ usuario_info.user.email }}')">Editar</button>
+                            <button class="delete-btn-users" onclick="openDeleteModal('{{ usuario_info.user.id }}')">Excluir</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        
+        <!-- Modal de Edição -->
+        <div id="editModal" class="modal-users">
+            <div class="modal-content-users">
+                <span class="close-users" onclick="closeEditModal()">&times;</span>
+                <h2 class="modal-title-users">Editar Usuário</h2>
+                <form id="editUserForm" method="POST" action="{% url 'gerenciar_usuarios' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" id="userId">
+                    <label for="firstName">Nome:</label>
+                    <input type="text" name="first_name" id="firstName" required>
+
+                    <label for="lastName">Sobrenome:</label>
+                    <input type="text" name="last_name" id="lastName" required>
+
+                    <label for="username">Usuário:</label>
+                    <input type="text" name="username" id="username" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" required>
+
+                    <label for="password">Senha:</label>
+                    <input type="password" name="password" id="password" placeholder="Deixe vazio para manter a senha atual">
+
+                    <button type="submit" class="save-btn-users">Salvar Alterações</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal de Confirmação de Exclusão -->
+        <div id="deleteModal" class="modal-users">
+            <div class="modal-content-users">
+                <span class="close-users" onclick="closeDeleteModal()">&times;</span>
+                <h2 class="modal-title-users">Confirmar Exclusão</h2>
+                <p>Tem certeza de que deseja excluir este usuário?</p>
+                <form id="deleteUserForm" method="POST" action="{% url 'excluir_usuario' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" id="deleteUserId">
+                    <button type="submit" class="delete-confirm-btn-users">Sim, Excluir</button>
+                    <button type="button" class="delete-cancel-btn-users" onclick="closeDeleteModal()">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/usuarios.js' %}"></script>
+    <script>
+        function openEditModal(id, firstName, lastName, username, email) {
+    document.getElementById('userId').value = id;
+    document.getElementById('firstName').value = firstName;
+    document.getElementById('lastName').value = lastName;
+    document.getElementById('username').value = username;
+    document.getElementById('email').value = email;
+    document.getElementById('password').value = '';
+    document.getElementById('editModal').style.display = 'flex';
+}
+
+function closeEditModal() {
+    document.getElementById('editModal').style.display = 'none';
+}
+
+function openDeleteModal(userId) {
+    document.getElementById('deleteUserId').value = userId;
+    document.getElementById('deleteModal').style.display = 'flex';
+}
+
+function closeDeleteModal() {
+    document.getElementById('deleteModal').style.display = 'none';
+}
+    </script>
+</div>
+{% endblock %}

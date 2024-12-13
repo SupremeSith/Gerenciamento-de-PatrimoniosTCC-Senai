@@ -1,0 +1,69 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block body %}
+
+{% include "navbar.html" %}
+{% include "vectorFormas.html" %}
+<div class="accordion">
+    <div class="accordion-item">
+        <div class="accordion-item-title" onclick="toggleAccordion(this)">
+            <span class="icon">+</span>
+            O que é o gerenciamento de patrimônios no SENAI?
+        </div>
+        <div class="accordion-item-desc">
+            O gerenciamento de patrimônios no SENAI envolve a administração e o controle dos bens e ativos físicos da instituição. Isso inclui a identificação, registro, manutenção, e descarte adequado dos patrimônios para garantir sua conservação e utilização eficiente.
+        </div>
+    </div>
+    
+    <div class="accordion-item">
+        <div class="accordion-item-title" onclick="toggleAccordion(this)">
+            <span class="icon">+</span>
+            Como os patrimônios são identificados e registrados?
+        </div>
+        <div class="accordion-item-desc">
+            Cada patrimônio do SENAI recebe uma etiqueta com um código único de identificação. Esse código é registrado em um sistema de gerenciamento, onde são armazenadas informações detalhadas sobre o bem, como data de aquisição, localização, valor, e condição atual.
+        </div>
+    </div>
+    
+    <div class="accordion-item">
+        <div class="accordion-item-title" onclick="toggleAccordion(this)">
+            <span class="icon">+</span>
+            Como é feita a manutenção dos patrimônios?
+        </div>
+        <div class="accordion-item-desc">
+            A manutenção dos patrimônios no SENAI é realizada de forma preventiva e corretiva. Equipamentos e máquinas recebem manutenção regular para evitar falhas, e reparos são feitos sempre que necessário para garantir que os patrimônios permaneçam operacionais e em boas condições.
+        </div>
+    </div>
+    
+    <div class="accordion-item">
+        <div class="accordion-item-title" onclick="toggleAccordion(this)">
+            <span class="icon">+</span>
+            Qual é a importância do gerenciamento de patrimônios?
+        </div>
+        <div class="accordion-item-desc">
+            Um gerenciamento eficaz de patrimônios garante que os recursos da instituição sejam utilizados de forma eficiente, reduzindo desperdícios e assegurando que todos os bens estejam em bom estado de conservação. Isso também facilita auditorias e relatórios financeiros precisos.
+        </div>
+    </div>
+    
+</div>
+
+<script src="{% static 'js/faq.js' %}"></script>
+<script>
+    function toggleAccordion(element) {
+    const desc = element.nextElementSibling;
+    const icon = element.querySelector('.icon');
+
+    if (desc.style.maxHeight) {
+        desc.style.maxHeight = null;
+        desc.style.opacity = 0;
+        icon.textContent = "+";
+    } else {
+        desc.style.maxHeight = desc.scrollHeight + "px";
+        desc.style.opacity = 1;
+        icon.textContent = "-";
+    }
+}
+</script>
+
+{% endblock %}

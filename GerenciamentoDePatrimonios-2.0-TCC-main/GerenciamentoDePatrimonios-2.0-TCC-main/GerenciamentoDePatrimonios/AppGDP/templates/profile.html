@@ -1,0 +1,147 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block body %}
+
+{% include "navbarAutenticado.html" %}
+    <head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/themesMode.css' %}">
+    </head>
+
+    <div class="profile-body">
+        <div class="container-profile">
+            <h2>Perfil do Usuário</h2>
+            <div class="profile-items">
+
+                <!-- Campo de Email -->
+                <div class="profile-item">
+                    <label for="email">Email</label>
+                    <div class="input-container">
+                        <input type="email" id="email" value="{{ email }}" disabled>
+                        <span class="material-icons edit-icon" onclick="openModal('emailModal')">edit</span>
+                    </div>
+                </div>
+
+
+                
+
+                <!-- Campo de Nome -->
+                <div class="profile-item">
+                    <label for="first_name">Nome</label>
+                    <div class="input-container">
+                        <input type="text" id="first_name" value="{{ first_name }}" disabled>
+                        <span class="material-icons edit-icon" onclick="openModal('nameModal')">edit</span>
+                    </div>
+                </div>
+
+                <!-- Campo de Sobrenome -->
+                <div class="profile-item">
+                    <label for="last_name">Sobrenome</label>
+                    <div class="input-container">
+                        <input type="text" id="last_name" value="{{ last_name }}" disabled>
+                        <span class="material-icons edit-icon" onclick="openModal('lastNameModal')">edit</span>
+                    </div>
+                </div>
+
+                <!-- Campo de Sala -->
+                <div class="profile-item">
+                    <label for="sala">Sala</label>
+                    <div class="input-container">
+                        <input type="text" id="sala" value="{{ sala }}" disabled>
+                    </div>
+                </div>
+                
+                <!-- Modal - Escolher Sala -->
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal - Editar Email -->
+    <div id="emailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('emailModal')">&times;</span>
+            <h2>Editar Email</h2>
+            <form method="POST" action="{% url 'profile' %}">
+                {% csrf_token %}
+                <label for="newEmail">Novo Email:</label>
+                <input type="email" id="newEmail" name="email" value="{{ email }}" required>
+                <button type="submit" onclick="alert('Perfil atualizado com sucesso!')">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal - Editar Nome -->
+    <div id="nameModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('nameModal')">&times;</span>
+            <h2>Editar Nome</h2>
+            <form method="POST" action="{% url 'profile' %}">
+                {% csrf_token %}
+                <label for="newName">Novo Nome:</label>
+                <input type="text" id="newName" name="first_name" value="{{ first_name }}" required>
+                <button type="submit" onclick="alert('Perfil atualizado com sucesso!')">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal - Editar Sobrenome -->
+    <div id="lastNameModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('lastNameModal')">&times;</span>
+            <h2>Editar Sobrenome</h2>
+            <form method="POST" action="{% url 'profile' %}">
+                {% csrf_token %}
+                <label for="newLastName">Novo Sobrenome:</label>
+                <input type="text" id="newLastName" name="last_name" value="{{ last_name }}" required>
+                <button type="submit" onclick="alert('Perfil atualizado com sucesso!')">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{% static 'js/profile.js' %}"></script>
+    <script>
+        function openModal(modalId) {
+            var modal = document.getElementById(modalId);
+            modal.style.display = "flex";
+        }
+
+        function closeModal(modalId) {
+            var modal = document.getElementById(modalId);
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            var emailModal = document.getElementById('emailModal');
+            var nameModal = document.getElementById('nameModal');
+            var lastNameModal = document.getElementById('lastNameModal');
+
+            if (event.target == emailModal) {
+                emailModal.style.display = "none";
+            }
+            if (event.target == nameModal) {
+                nameModal.style.display = "none";
+            }
+            if (event.target == lastNameModal) {
+                lastNameModal.style.display = "none";
+            }
+        }
+
+        function saveSala() {
+            const selectedSala = document.getElementById("selectSala").value;
+            document.getElementById("sala").value = selectedSala;
+            closeModal('salaModal');
+            alert(`Sala atualizada para: ${selectedSala}`);
+        }
+
+        // Ativar/desativar modo escuro
+        function toggleDarkMode() {
+            document.documentElement.setAttribute('data-theme', 
+                document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+        }
+    </script>
+{% endblock %}
+

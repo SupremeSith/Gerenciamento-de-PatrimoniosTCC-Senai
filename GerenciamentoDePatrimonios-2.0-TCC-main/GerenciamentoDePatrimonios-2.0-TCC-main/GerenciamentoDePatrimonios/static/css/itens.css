@@ -1,0 +1,415 @@
+/* Configurações Gerais */
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: var(--modal-color);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    z-index: 10000000000;
+}
+
+
+.bg-body-i-w{
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.bg-body-i-w h1 {
+    font-family: poppins;
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
+
+.bg-body-i-w h2 {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.bg-body-i-w h3 {
+    font-family: poppins;
+    margin-bottom: 20px;
+}
+
+
+.logo img {
+    height: 40px;
+}
+
+
+.allItensContainerSearch {
+    position: sticky;
+    padding: 10px;
+
+}
+
+/* Container de Busca e Adição de Itens */
+.search-container {
+    display: flex;
+    align-items: center; /* Alinha verticalmente os itens */
+    gap: 10px; /* Espaço entre os elementos */
+    border-radius: 100px
+    
+
+    
+}
+/* Contêiner para alinhar os botões horizontalmente */
+.status-buttons-container {
+    display: flex;
+    gap: 10px; /* Espaço entre os botões */
+}
+
+/* Estilo base para todos os botões */
+.status-button {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'poppins';
+    font-weight: bold;
+    text-align: center;
+    color: white;
+}
+
+/* Botão para o total (cinza) */
+.total-button {
+    background-color: #6c757d; /* Cinza */
+}
+
+/* Botão para localizados (verde) */
+.located-button {
+    background-color: #28a745; /* Verde */
+}
+
+/* Botão para não localizados (vermelho) */
+.not-located-button {
+    background-color: #dc3545; /* Vermelho */
+}
+
+
+.search-container input.input-itens {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 30px;
+    font-size: 14px;
+    width: 300px;
+}
+
+.search-container input[type="text"] {
+    padding: 16px;
+    width: 300px;
+    border-radius: 30px;
+    border: 2px solid var(--input-color2);
+    font-size: 16px;
+    color: black;
+    background-color: white;
+}
+
+.search-container button {
+    background-color: #B01818;
+    color: #fff;
+    padding: 13px 13px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.search-container button:hover {
+    background-color: #8a1313;
+}
+
+#iconItens{
+    margin-right: 0px;
+}
+
+.search-container .add-button {
+    border-radius: 100px;
+    font-size: 24px;
+    width: 309px;
+}
+
+.add-text{
+    margin-left: 10px;
+}
+
+.add-button p{
+    padding: 18 100px 18 100px;
+}
+
+/* Container de Itens */
+.items-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 40px;
+    
+
+}
+
+.item-card {
+    background-color: var(--text-color);
+    box-shadow: 0 2px 5px var(--text-color);
+    padding: 20px;
+    transition: transform 0.3s ease;
+    background: var(--card-color-bg);
+    box-shadow: 5px 5px 20px 0px rgba(133, 133, 133, 0.2) inset;
+    width: 580px;
+    height: 347px;
+    color: #fff;
+    gap: 0px;
+    border-radius: 30px;
+    opacity: 0px;
+    align-items: center;
+    justify-content: left;
+    display: flex;
+    position: relative;
+    z-index: 1;
+}
+
+.bg-img{
+    width: 277px;
+    height: 300px;
+    top: 282px;
+    left: 23.15px;
+    gap: 0px;
+    border-radius: 55px;
+    opacity: 0px;
+    background: rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.bg-img img{
+    width: 277px;
+    height: 300px;
+    border-radius: 55px;
+    mix-blend-mode: multiply;
+
+}
+
+.inf{
+    margin-left: 20px;
+    font-family: poppins;
+    max-width: 300px;
+    max-height: 100px;
+    color: var(--text-color);
+}
+
+.but-sala{
+    z-index: 1000;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+    background-color: #B01818;
+    font-family: sans-serif;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    padding: 0 10px;
+    width: 180px;
+    height: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.but-sala:hover{
+    background-color: #8a1313;
+}
+
+.inf h3{
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.inf p{
+    margin-top: 10px;
+}
+
+.item-card:hover {
+    transform: translateY(-5px);
+}
+
+.search-container input{
+    margin-bottom: 0px;
+}
+
+.modal-actions {
+    display: flex; /* Coloca os botões lado a lado */
+    justify-content: center; /* Centraliza os botões */
+    align-items: center;
+    gap: 20px; /* Espaçamento entre os botões */
+    width: 100%; /* Garante que o contêiner ocupe toda a largura */
+}
+
+.editButton, .btn-delete, .saveButton {
+    background-color: #B01818;
+    border: none;
+    padding: 15px 25px; /* Tamanho dos botões */
+    border-radius: 10px; /* Arredondamento dos cantos */
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    width: 150px; /* Largura fixa igual para ambos os botões */
+}
+
+.editButton:hover, .btn-delete:hover, .saveButton:hover {
+    background-color: #8a1313; /* Cor mais escura no hover */
+}
+
+
+@media (max-width: 760px) {
+    .search-container {
+        gap: 15px;
+    }
+
+    .search-container input[type="text"] {
+        width: 100%; 
+    }
+
+    .search-container button {
+        width: 40px;
+        border-radius: 20px; 
+        padding: 10px 0; 
+    }
+
+    .search-container .add-button {
+        border-radius: 10px;
+        width: 110px;
+    }
+    
+    .add-text.none{
+        display: none;
+    }
+    .bg-body-i-w h3 {
+        font-family: poppins;
+        font-size: 12px;
+    }
+    .status-button {
+        display: inline-block;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 10px;
+
+    }
+
+
+}
+
+
+
+
+@media (max-width: 900px) {
+    .modal-content {
+        width: 90%;
+        margin: 20% auto;
+        padding: 15px;
+    }
+
+    .bg-body-i-w {
+        padding: 20px;
+    }
+
+    .search-container {
+        gap: 15px;
+    }
+
+    .search-container input[type="text"] {
+        width: 100%; 
+    }
+    .search-container input[type="text"] {
+        padding: 16px;
+        font-size: 10px;
+    }
+    .search-container button {
+        width: 50px;
+        border-radius: 10px; 
+        padding: 10px 10px; 
+    }
+
+    .search-container .add-button {
+        border-radius: 10px;
+        width: 110px;
+    }
+
+    
+    .add-text.none{
+        display: none;
+    }
+    .items-container {
+        flex-direction: column;
+    }
+
+    .item-card {
+        width: 100%;
+        height: auto;
+        padding: 15px;
+        border-radius: 15px;
+    }
+
+    .bg-img, .bg-img img {
+        width: 100px;
+        height: 100px;
+        border-radius: 15px;
+    }
+
+    .inf {
+        max-width: 100%;
+        font-size: 0.9rem;
+    }
+    .inf p{
+        margin-bottom: 50px;
+    }
+
+    .inf h3{
+        font-size: 16px;
+    }
+
+    
+    .but-sala{
+        z-index: 1000;
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        z-index: 10;
+        background-color: #B01818;
+        font-family: sans-serif;
+        color: white;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        padding: 0 10px;
+        width: 100px;
+        height: 30px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: background-color 0.3s ease;
+    }
+
+}

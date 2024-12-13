@@ -1,0 +1,290 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block body %}
+{% include "navbarAutenticado.html" %}
+
+<main class="bg-body-i-w">
+
+    <h1>Salas</h1>
+    <div class="search-container">
+        <form id="searchForm" method="GET" action="{% url 'buscar_salas' %}">
+            <div class="search-container">
+                <button type="submit">
+                    <span class="material-symbols-outlined" id="iconItens">search</span>
+                </button>
+                <input class="input-itens" type="text" name="q" id="searchInput" placeholder="Buscar por sala">
+            </div>
+        </form>
+        {% if is_coordenador %}
+        <button class="add-button" onclick="openModal('modalAddItem')">
+            <span class="material-symbols-outlined" id="iconItens">add_circle</span>
+            <p class="add-text none">Adicionar</p>
+        </button>
+        {% endif %}
+    </div>
+
+    <div class="items-container">
+        {% for item in sala %}
+        <div class="item-card" onclick="openItemModal('{{ item.sala }}', '{{ item.descricao }}', '{{ item.localizacao }}', '{{ item.link_imagem }}', '{{ item.responsavel }}', '{{ item.email_responsavel }}' , '{{ item.quantidade_itens }}')">
+            <div class="bg-img">
+                <img src="{{ item.link_imagem }}" alt="{{ item.denominacao }}">
+            </div>
+            <div class="inf">
+                <h3>{{ item.sala }}</h3>
+                <p>Localização: {{ item.localizacao }}</p>
+                <button class="but-sala" onclick="event.stopPropagation(); redirecionarItensSala('{{ item.sala }}')">Visualizar Sala</button>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if errors %}
+    <ul class="error-list">
+        {% for field, error_list in errors.items %}
+            {% for error in error_list %}
+                <li>{{ field }}: {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+{% endif %}
+
+    <!-- Modal de excluir -->
+     
+
+    <!-- Modal de Visualização do Item -->
+<!-- Modal de Visualização do Item -->
+<!-- Modal de Visualização do Item -->
+<!-- Modal de Visualização do Item -->
+<div id="modalItem" class="modal">
+    <div class="modal-content">
+        <button type="button" class="btn-close" onclick="closeModal('modalItem')"><span class="material-symbols-outlined">
+            close
+            </span></button>
+        <h2 class="adicionarH2Itens">Informações</h2>
+        <form id="itemForm" method="POST" action="{% url 'update_item' %}">
+            {% csrf_token %}
+            
+            <label for="salaInput">Sala:</label>
+            <input type="text" id="salaInput" name="sala" value="" readonly>
+
+            <label for="descricaoInput">Descrição:</label>
+            <input type="text" id="descricaoInput" name="descricao" value="" readonly>
+            
+            <label for="localizacaoInput">Localização:</label>
+            <input type="text" id="localizacaoInput" name="localizacao" value="" readonly>
+
+            <label for="link_imagemInput">Link da imagem:</label>
+            <input type="text" id="link_imagemInput" name="link_imagem" value="" readonly>
+
+            <label for="responsavelInput">Responsável:</label>
+            <input type="text" id="responsavelInput" name="responsavel" value="" readonly>
+
+            <label for="email_responsavelInput">Email do Responsável:</label>
+            <input type="text" id="email_responsavelInput" name="email_responsavel" value="" readonly>
+
+
+            
+            <div class="modal-actions">
+                {% if is_coordenador %}
+                <button type="button" id="editButton" class="editButton" onclick="enableEdit()">Editar</button>
+                <button type="submit" id="saveButton" class="editButton" style="display:none;">Salvar</button>
+                <button type="button" class="btn-delete" onclick="confirmDelete()">Excluir</button>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<!-- Modal de Filtros -->
+
+
+
+    <!-- Modal de Adicionar Sala -->
+    <div id="modalAddItem" class="modal">
+        <div class="modal-content">
+            <button type="button" class="btn-close" onclick="closeModal('modalAddItem')"><span class="material-symbols-outlined">
+                close
+                </span></button>
+            <h2 class="adicionarH2Itens">Adicionar Sala</h2>
+            <form id="addItemForm" method="POST" action="{% url 'adicionar_inventario' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="modal-actions">
+                    <button type="submit" class="btn-add">Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="modalConfirmation" class="modal-confirmation">
+        <div class="modal-content-confirmation">
+            <h2>Item Adicionado!</h2>
+            <p>O item foi adicionado com sucesso ao inventário.</p>
+            <button class="btn-close-confirmation" onclick="closeConfirmation()">Fechar</button>
+        </div>
+    </div>
+
+    <script src="{% static 'js/salas.js' %}"></script>
+    <script>
+function redirecionarItensSala(sala) {
+    const url = new URL(window.location.origin + "{% url 'buscar_itens_sala' %}");
+    url.searchParams.set('sala', sala);  // Define o parâmetro 'sala'
+    window.location.href = url.toString();  // Redireciona para a URL
+}
+
+function openModal(modalId) {
+    document.getElementById(modalId).style.display = 'block';
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+window.onclick = function (event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = "none";
+    }
+}
+function enableEdit() {
+    // Permite a edição dos campos
+    document.getElementById("descricaoInput").removeAttribute("readonly");
+    document.getElementById("localizacaoInput").removeAttribute("readonly");
+    document.getElementById("responsavelInput").removeAttribute("readonly");
+    document.getElementById("link_imagemInput").removeAttribute("readonly");
+    document.getElementById("email_responsavelInput").removeAttribute("readonly");
+    
+    // Mostra o botão de salvar e esconde o de editar
+    document.getElementById("editButton").style.display = "none";
+    document.getElementById("saveButton").style.display = "inline-block";
+
+    // Altera a ação do formulário para o URL de atualização
+    document.getElementById("itemForm").action = "{% url 'update_sala' %}";
+}
+
+function confirmDelete() {
+    // Exibe uma mensagem de confirmação
+    if (confirm("Tem certeza de que deseja excluir este item?")) {
+        // Altera a ação do formulário para o URL de exclusão
+        document.getElementById("itemForm").action = "{% url 'excluir_sala' %}";
+        document.getElementById("itemForm").submit();
+    }
+}
+
+
+
+function saveChanges() {
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Obtém o token CSRF
+    const formData = {
+        sala: document.getElementById("salaInput").value,
+        descricao: document.getElementById("descricaoInput").value,
+        localizacao: document.getElementById("localizacaoInput").value,
+        link_imagem: document.getElementById("link_imagemInput").value,
+        responsavel: document.getElementById("responsavelInput").value,
+        email_responsavel: document.getElementById("email_responsavelInput").value
+        
+    };
+
+    // Faz uma requisição AJAX para enviar os dados ao servidor
+    fetch('/update-sala/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken // Adiciona o token CSRF
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Item atualizado com sucesso!');
+        } else {
+            alert('Erro ao atualizar o item.');
+        }
+    })
+    .catch(error => console.error('Erro:', error));
+
+    // Alterna novamente os botões
+    document.getElementById("editButton").style.display = "inline-block";
+    document.getElementById("saveButton").style.display = "none";
+
+    // Desativa os campos de input
+    document.getElementById("salaInput").setAttribute("readonly", true);
+    document.getElementById("descricaoInput").setAttribute("readonly", true);
+    document.getElementById("localizacaoInput").setAttribute("readonly", true);
+    document.getElementById("link_imagemInput").setAttribute("readonly", true);
+    document.getElementById("responsavelInput").setAttribute("readonly", true);
+    document.getElementById("email_responsavelInput").setAttribute("readonly", true);
+
+}
+
+function openItemModal(sala, descricao, localizacao, link_imagem, responsavel, email_responsavel) {
+    document.getElementById('salaInput').value = sala;
+    document.getElementById('descricaoInput').value = descricao;
+    document.getElementById('localizacaoInput').value = localizacao;
+    document.getElementById('link_imagemInput').value = link_imagem;
+    document.getElementById('responsavelInput').value = responsavel;
+    document.getElementById('email_responsavelInput').value = email_responsavel;
+
+
+
+    
+    openModal('modalItem');
+}
+
+function openModal(modalId) {
+    document.getElementById(modalId).style.display = 'block';
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+window.onclick = function (event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = "none";
+    }
+}
+
+function openConfirmation() {
+    document.getElementById('modalConfirmation').style.display = 'block';
+}
+
+function closeConfirmation() {
+    document.getElementById('modalConfirmation').style.display = 'none';
+    window.location.href = "{% url 'salas' %}";
+}
+
+document.getElementById('addItemForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+
+    fetch("{% url 'adicionar_salas' %}", {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => {
+        if (response.ok) {
+            closeModal('modalAddItem');
+            openConfirmation();
+        } else {
+            alert("Erro ao adicionar o item.");
+        }
+    })
+    .catch(error => {
+        console.error("Erro:", error);
+    });
+});
+
+function openSala(sala) {
+    // Código para abrir ou exibir informações da sala
+    console.log("Sala visualizada:", sala);
+}
+    </script>
+
+</main>
+{% endblock %}
+

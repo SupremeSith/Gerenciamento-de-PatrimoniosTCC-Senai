@@ -1,0 +1,65 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block body %}
+{% include "navbarAutenticado.html" %}
+
+<main class="bg-body-l-w mainLogin">
+    <form class="login-form" method="POST" action="{% url 'cadastroUsuario' %}">
+        {% csrf_token %}
+        <h1 class="titleLogin" style="margin-top: 70px;">Cadastro</h1>
+
+        <div class="input-group ig1">
+            <label for="id_first_name"><b>Nome</b></label>
+            <div class="input-container">
+                {{ form.first_name }}
+            </div>
+        </div>
+
+        <div class="input-group ig1">
+            <label for="id_last_name"><b>Sobrenome</b></label>
+            <div class="input-container">
+                {{ form.last_name }}
+            </div>
+        </div>
+
+        <div class="input-group ig1">
+            <label for="id_user"><b>Usuário</b></label>
+            <div class="input-container">
+                {{ form.user }}
+            </div>
+        </div>
+
+        <div class="input-group ig1">
+            <label for="id_email"><b>Email</b></label>
+            <div class="input-container">
+                {{ form.email }}
+            </div>
+        </div>
+
+        <div class="input-group ig2">
+            <label for="id_password"><b>Senha</b></label>
+            <div class="input-container">
+                {{ form.password }}
+            </div>
+        </div>
+
+        <!-- Sala -->
+         <div class="input-group ig1">
+            <label for="id_sala"><b>Sala</b></label>
+            <div class="input-container">
+                {{ form.sala }}
+            </div>
+        </div>
+
+        <div class="input-group ig1">
+            <label for="id_group"><b>Grupo</b></label>
+            <div class="input-container">
+                {{ form.group }}
+            </div>
+        </div>
+
+        <button type="submit" class="btn-login">Cadastrar</button>
+    </form>
+</main>
+{% endblock %}

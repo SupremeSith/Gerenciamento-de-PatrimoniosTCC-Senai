@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=SUSE:wght@493&display=swap');
+@import url(navbar.css);
+@import url(vector.css);
+@import url(homepage.css);
+@import url(homepageDark.css);
+@import url(themesMode.css);
+@import url(login.css);
+@import url(profile.css);
+@import url(faq.css);
+@import url(welcomeHomepage.css);
+@import url(itens.css);
+@import url(modal.css);
+@import url(modalConfirmation.css);
+@import url(footer.css);
+
+/* Estilo inicial dos itens */
+.fade-in-item {
+    opacity: 0;
+    transform: translateY(-20px); /* Começa deslocado para cima */
+    transition: opacity 1s ease, transform 1s ease; /* Animação suave */
+}
+
+/* Estilo final (visível) */
+.fade-in-item.visible {
+    opacity: 1;
+    transform: translateY(0); /* Volta à posição original */
+}

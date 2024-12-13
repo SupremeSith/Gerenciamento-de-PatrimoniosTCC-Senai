@@ -1,0 +1,50 @@
+{% load static %}
+
+
+  <footer class="footer">
+  	 <div class="containerFooter">
+  	 	<div class="row">
+  	 		<div class="footer-col">
+  	 			<h4>Senai</h4>
+  	 			<ul>
+  	 				<li><a href="https://www.sp.senai.br/">Senai Portal</a></li>
+  	 				<li><a href="https://www.mundosenai.com.br/">Mundo Senai</a></li>
+  	 				<li><a href="https://pess.sesisenaispedu.org.br/Portal.aspx">Portal educacional</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>Funcionalidades</h4>
+  	 			<ul>
+  	 				<li><a href="{% url 'salas' %}">Salas</a></li>
+  	 				<li><a href="{% url 'itens' %}">Itens</a></li>
+  	 				<li><a href="{% url 'welcomeHomepage' %}">Home</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>Usuários</h4>
+  	 			<ul>
+					{% if is_coordenador %} 
+					<li><a href="{% url 'gerenciar_usuarios' %}">Gerenciar Usuários</a></li>
+  	 				<li><a href="{% url 'cadastroUsuario' %}">Cadastrar</a></li>
+					{% endif %}
+					<li><a href="{% url 'profile' %}">Perfil</a></li>
+
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>Acompanhe-nos</h4>
+  	 			<div class="social-links">
+  	 				<a href="#"><i class="fab fa-facebook-f"></i></a>
+  	 				<a href="#"><i class="fab fa-twitter"></i></a>
+  	 				<a href="#"><i class="fab fa-instagram"></i></a>
+  	 				<a href="#"><i class="fab fa-linkedin-in"></i></a>
+  	 			</div>
+  	 		</div>
+  	 	</div>
+		
+		<p class="copy" style="color: white; text-align: center; margin-top: 60px;">© 2024 Todos os direitos reservados.</p>
+
+  	 </div>
+  </footer>
+
+

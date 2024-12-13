@@ -1,0 +1,30 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --textBorder-color: #000000;
+    --color-logo-gradA: black;
+    --color-logo-gradB: #b01717;
+    --card-color-bg: rgba(0, 0, 0, 0.100);
+    --modal-color: #ffffff;
+    --input-color: #ffffff;
+    --input-color2: #000000;
+}   
+
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --textBorder-color: #b01717;
+    --color-logo-gradA: white;
+    --color-logo-gradB: #b01717;
+    --card-color-bg: #313131;
+    --modal-color: #313131;
+    --input-color: #000000;
+    --input-color2: #ffffff;
+}
+
+.main {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    
+}
+

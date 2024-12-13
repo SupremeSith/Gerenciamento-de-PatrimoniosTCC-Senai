@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block body %}
+
+{% include "navbar.html" %}
+{% include "vectorFormas.html" %}
+<div class="itensHomepage">
+    <div class="textsHomepage">
+        <p class="subtitlesHomepage">Patrimônios em ordem</p>
+        <div id="svg-container">
+            <h1 class="titleHomepage">Senai Admin</h1>
+        </div>
+        <p class="subtitlesHomepage2">Caso já tenha um usuário, faça login para acessar o site</p>
+        <a href="login" class="TransparentBlackButton-component">Entrar</a>
+            
+        
+
+    </div>
+    
+    <div class="iconHomepage">
+        <img src="{% static 'img/ImageIcon.png' %}" alt="ImageIcon" class="ImageIcon-component">
+    </div>
+</div>  
+{% endblock %}

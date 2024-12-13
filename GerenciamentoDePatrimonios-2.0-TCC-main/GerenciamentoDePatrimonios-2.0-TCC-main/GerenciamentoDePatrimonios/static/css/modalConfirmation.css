@@ -1,0 +1,131 @@
+/* Modal de Confirmação */
+.modal-confirmation {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    font-family: poppins;
+}
+
+.modal-content-confirmation {
+    background-color: var(--modal-color);
+    margin: 15% auto;
+    padding: 30px;
+    border: none;
+    width: 40%;
+    max-width: 500px;
+    border-radius: 16px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.modal-content-confirmation h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #4BB543; /* Cor verde de sucesso */
+}
+
+.modal-content-confirmation p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: var(--text-color);
+}
+
+.modal-content-confirmation .btn-close-confirmation {
+    background-color: #b01818;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 24px;
+    font-family: poppins;
+}
+
+.modal-content-confirmation .btn-close-confirmation:hover {
+    background-color: #9a1515;
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 600px) {
+    .modal-content-confirmation {
+        width: 90%;
+        padding: 20px;
+    }
+    .modal-content-confirmation h2 {
+        font-size: 20px;
+    }
+    .modal-content-confirmation p {
+        font-size: 16px;
+    }
+    .modal-content-confirmation .btn-close-confirmation {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+}
+
+/* Responsividade para tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .modal-content-confirmation {
+        width: 70%;
+        padding: 25px;
+    }
+    .modal-content-confirmation h2 {
+        font-size: 22px;
+    }
+    .modal-content-confirmation p {
+        font-size: 17px;
+    }
+    .modal-content-confirmation .btn-close-confirmation {
+        padding: 14px 25px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 600px) {
+    .modal-content-confirmation {
+        width: 90%;
+        padding: 20px;
+    }
+    .modal-content-confirmation h2 {
+        font-size: 20px;
+    }
+    .modal-content-confirmation p {
+        font-size: 16px;
+    }
+    .modal-content-confirmation .btn-close-confirmation {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+}
+
+/* Responsividade para tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .modal-content-confirmation {
+        width: 70%;
+        padding: 25px;
+    }
+    .modal-content-confirmation h2 {
+        font-size: 22px;
+    }
+    .modal-content-confirmation p {
+        font-size: 17px;
+    }
+    .modal-content-confirmation .btn-close-confirmation {
+        padding: 14px 25px;
+        font-size: 18px;
+    }
+}
+
+/* Responsividade para desktops maiores */
+@media (min-width: 1025px) {
+    .modal-content-confirmation {
+        width: 40%;
+        padding: 30px;
+    }
+}

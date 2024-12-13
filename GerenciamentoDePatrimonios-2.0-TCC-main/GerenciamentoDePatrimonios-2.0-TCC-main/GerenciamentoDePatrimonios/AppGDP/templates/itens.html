@@ -1,0 +1,304 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block body %}
+{% include "navbarAutenticado.html" %}
+
+<main class="bg-body-i-w">
+    <h1>Itens</h1>
+    <div class="status-buttons-container">
+        <span class="status-button total-button">Total: {{ total_itens }}</span>
+        <span class="status-button located-button">Localizados: {{ total_localizados }}</span>
+        <span class="status-button not-located-button">Não localizados: {{ total_nao_localizados }}</span>
+    </div>
+    <div class="allItensContainerSearch">
+        <div class="search-container">
+            <form id="searchForm" method="GET" action="{% url 'buscar_itens' %}">
+                <div class="search-container">
+                    <button type="submit">
+                        <span class="material-symbols-outlined searchIcon" id="iconItens">search</span>
+                    </button>
+                    <input class="input-itens" type="text" name="q" id="searchInput"
+                           placeholder="Buscar por número de inventário..." value="{{ request.GET.q }}">
+                </div>
+            </form>
+
+            <button onclick="openModal('modalFiltro')" class="filterButton">
+                <span class="material-symbols-outlined" id="iconItens">filter_list</span>
+            </button>
+
+            {% if is_coordenador %}
+            <button class="add-button" onclick="openModal('modalAddItem')">
+                <span class="material-symbols-outlined" id="iconItens">add_circle</span>
+                <p class="add-text none">Adicionar</p>
+            </button>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="items-container">
+        {% for item in inventario %}
+        <div class="item-card"
+            onclick="openItemModal('{{ item.denominacao }}', '{{ item.num_inventario }}', '{{ item.link_imagem }}', '{{ item.localizacao }}', '{{ item.sala }}', '{{ item.status_localizacao }}')">
+            <div class="bg-img">
+                <img src="{{ item.link_imagem }}" alt="{{ item.denominacao }}">
+            </div>
+            <div class="inf">
+                <h3>{{ item.denominacao }}</h3>
+                <p>Inventário: {{ item.num_inventario }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- Modal de excluir -->
+
+
+    <!-- Modal de Visualização do Item -->
+
+    <div id="modalItem" class="modal">
+        <div class="modal-content">
+            <button type="button" class="btn-close" onclick="closeModal('modalItem')"><span class="material-symbols-outlined">
+                close
+                </span></button>
+            <h2 class="adicionarH2Itens">Informações</h2>
+            <form id="itemForm" method="POST" action="{% url 'update_item' %}">
+                {% csrf_token %}
+                <label for="denominacaoInput">Denominação:</label>
+                <input type="text" id="denominacaoInput" name="denominacao" value="" readonly>
+
+                <label for="numInventarioInput">Número de Inventário:</label>
+                <input type="text" id="numInventarioInput" name="numInventario" value="" readonly>
+
+                <label for="localizacaoInput">Localização: </label>
+                <input type="text" id="localizacaoInput" name="localizacao" value="" readonly>
+
+                <label for="salaInput">Sala:</label>
+                <input type="text" id="salaInput" name="sala" value="" readonly>
+
+                <label for="imagemInput">Imagem:</label>
+                <input type="text" id="imagemInput" name="imagem" value="" readonly>
+
+                <label for="statusInput">Status:</label>
+                <input type="text" id="statusInput" name="status" value="" readonly>
+
+                {% if is_coordenador %}
+                <div class="modal-actions">
+                    <button type="button" id="editButton" class="editButton" onclick="enableEdit()">Editar</button>
+                    <button type="submit" id="saveButton" class="editButton" style="display:none;">Salvar</button>
+
+                    <button type="button" class="btn-delete" onclick="confirmDelete()">Excluir</button>
+                </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+   <!-- Modal de Filtros -->
+<div id="modalFiltro" class="modal">
+    <div class="modal-content">
+        <button type="button" class="btn-close" onclick="closeModal('modalFiltro')">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <h2>Filtrar Itens</h2>
+
+        <form method="GET" action="{% url 'itens' %}">
+            <!-- Filtro por Ordem Alfabética -->
+            <label for="ordem">Ordenar por:</label>
+            <select name="ordem" id="ordem">
+                <option value="" {% if not request.GET.ordem %}selected{% endif %}>Sem Ordem</option>
+                <option value="A-Z" {% if request.GET.ordem == "A-Z" %}selected{% endif %}>A-Z</option>
+                <option value="Z-A" {% if request.GET.ordem == "Z-A" %}selected{% endif %}>Z-A</option>
+            </select>
+
+            <!-- Filtro por Status -->
+            <label for="status">Filtrar por Status:</label>
+            <select name="status" id="status">
+                <option value="" {% if not request.GET.status %}selected{% endif %}>Todos</option>
+                <option value="localizado" {% if request.GET.status == "localizado" %}selected{% endif %}>Localizados</option>
+                <option value="nao_localizado" {% if request.GET.status == "nao_localizado" %}selected{% endif %}>Não Localizados</option>
+            </select>
+
+            <!-- Filtro por Sala (Somente para Coordenadores) -->
+            {% if is_coordenador %}
+            <label for="sala">Filtrar por Sala:</label>
+            <input type="text" name="sala" id="sala" 
+                   placeholder="Digite o nome da sala" value="{{ request.GET.sala }}">
+            {% endif %}
+
+            <button type="submit">Aplicar</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+    <!-- Modal de Adicionar Item -->
+    <div id="modalAddItem" class="modal">
+        <div class="modal-content">
+            <button type="button" class="btn-close" onclick="closeModal('modalAddItem')"><span class="material-symbols-outlined">
+                close
+                </span></button>
+            <h2 class="adicionarH2Itens">Adicionar Item</h2>
+            <form id="addItemForm" method="POST" action="{% url 'adicionar_inventario' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="modal-actions">
+                    <button type="submit" class="btn-add">Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="modalConfirmation" class="modal-confirmation">
+        <div class="modal-content-confirmation">
+            <h2>Item Adicionado!</h2>
+            <p>O item foi adicionado com sucesso ao inventário.</p>
+            <button class="btn-close-confirmation" onclick="closeConfirmation()">Fechar</button>
+        </div>
+    </div>
+
+    <script src="{% static 'js/itens.js' %}"></script>
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+
+        function enableEdit() {
+            // Torna os campos editáveis
+            document.getElementById("denominacaoInput").removeAttribute("readonly");
+            document.getElementById("numInventarioInput").removeAttribute("readonly");
+            document.getElementById("localizacaoInput").removeAttribute("readonly");
+            document.getElementById("salaInput").removeAttribute("readonly");
+            document.getElementById("imagemInput").removeAttribute("readonly");
+
+            // Exibe o botão de salvar e oculta o botão de editar
+            document.getElementById("editButton").style.display = "none";
+            document.getElementById("saveButton").style.display = "inline-block";
+
+            // Altera o action do formulário para o URL de atualização (edição)
+            document.getElementById("itemForm").action = "{% url 'update_item' %}";
+        }
+
+        function confirmDelete() {
+            // Confirmação simples antes de excluir
+            if (confirm("Tem certeza de que deseja excluir este item?")) {
+                // Altera o action do formulário para o URL de exclusão
+                document.getElementById("itemForm").action = "{% url 'excluir_inventario' %}";
+                document.getElementById("itemForm").submit();
+            }
+        }
+
+
+        function saveChanges() {
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Obtém o token CSRF
+            const formData = {
+                denominacao: document.getElementById("denominacaoInput").value,
+                numInventario: document.getElementById("numInventarioInput").value,
+                localizacao: document.getElementById("localizacaoInput").value,
+                sala: document.getElementById("salaInput").value,
+                imagem: document.getElementById("imagemInput").value,
+            };
+
+            // Faz uma requisição AJAX para enviar os dados ao servidor
+            fetch('/update-item/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken // Adiciona o token CSRF
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Item atualizado com sucesso!');
+                    } else {
+                        alert('Erro ao atualizar o item.');
+                    }
+                })
+                .catch(error => console.error('Erro:', error));
+
+            // Alterna novamente os botões
+            document.getElementById("editButton").style.display = "inline-block";
+            document.getElementById("saveButton").style.display = "none";
+
+            // Desativa os campos de input
+            document.getElementById("denominacaoInput").setAttribute("readonly", true);
+            document.getElementById("numInventarioInput").setAttribute("readonly", true);
+            document.getElementById("localizacaoInput").setAttribute("readonly", true);
+            document.getElementById("salaInput").setAttribute("readonly", true);
+            document.getElementById("imagemInput").setAttribute("readonly", true);
+        }
+
+        function openItemModal(denominacao, numInventario, linkImagem, localizacao, sala, statusLocalizacao) {
+            document.getElementById('denominacaoInput').value = denominacao;
+            document.getElementById('numInventarioInput').value = numInventario;
+            document.getElementById('imagemInput').value = linkImagem;
+            document.getElementById('localizacaoInput').value = localizacao;
+            document.getElementById('salaInput').value = sala
+            document.getElementById('statusInput').value = statusLocalizacao;
+
+
+            openModal('modalItem');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+
+        function openConfirmation() {
+            document.getElementById('modalConfirmation').style.display = 'block';
+        }
+
+        function closeConfirmation() {
+            document.getElementById('modalConfirmation').style.display = 'none';
+            window.location.href = "{% url 'itens' %}";
+        }
+
+        document.getElementById('addItemForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            fetch("{% url 'adicionar_inventario' %}", {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => {
+                    if (response.ok) {
+                        closeModal('modalAddItem');
+                        openConfirmation();
+                    } else {
+                        console.error("Erro ao adicionar item.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro:", error);
+                });
+        });
+    </script>
+
+</main>
+{% endblock %}

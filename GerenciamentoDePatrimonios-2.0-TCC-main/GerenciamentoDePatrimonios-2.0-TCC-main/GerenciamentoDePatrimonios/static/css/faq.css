@@ -1,0 +1,102 @@
+.accordion {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    
+    margin: 50px auto;
+    padding: 0 50px;
+    padding: 0 20px; /* Reduz o padding em telas menores */
+}
+.accordion h1 {
+    font-size: 32px;
+    text-align: center;
+}
+.accordion-item {
+    margin-top: 16px;
+    font-size: 20px;
+    border-radius: 6px;
+    background: transparent; /* Fundo transparente */
+    transition: background 0.5s;
+}
+.accordion-item .accordion-item-title {
+    font-family: Poppins, sans-serif;
+    font-size: 24px; /* Tamanho da fonte para o título das perguntas */
+    position: relative;
+    margin: 0;
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    padding: 14px 20px;
+    box-sizing: border-box;
+    align-items: center;
+    background: transparent; /* Fundo transparente */
+}
+
+.accordion-item .accordion-item-desc {
+    font-family: "Poppins", sans-serif;
+    font-size: 20px; /* Tamanho da fonte para o texto após apertar */
+    line-height: 22px;
+    font-weight: 400;
+    color: var(--text-color);
+    padding: 10px 20px 20px;
+    box-sizing: border-box;
+    background: transparent; /* Fundo transparente */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease; /* Animação suave */
+}
+
+.accordion-item .icon {
+    margin-left: 14px;
+    font-size: 20px;
+    transition: transform 0.3s ease; /* Animação para a seta */
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .accordion {
+        width: 90%; /* Para telas menores, ocupa 90% da largura */
+        max-width: 100%; /* Ocupa toda a largura */
+        padding: 0 15px; /* Reduz o padding */
+    }
+
+    .accordion-item .accordion-item-title {
+        font-size: 20px; /* Reduz o tamanho do título */
+        padding: 12px 15px; /* Reduz o espaçamento */
+    }
+
+    .accordion-item .accordion-item-desc {
+        font-size: 18px; /* Reduz o tamanho do texto */
+        padding: 8px 15px 15px; /* Ajusta o espaçamento */
+    }
+
+    .accordion-item .icon {
+        font-size: 18px; /* Reduz o tamanho do ícone */
+    }
+}
+
+/* Responsividade para telas muito pequenas */
+@media (max-width: 480px) {
+    .accordion {
+        width: 90%; /* Para telas menores, ocupa 90% da largura */
+    }
+    
+    .accordion h1 {
+        font-size: 24px; /* Reduz o tamanho do título principal */
+    }
+
+    .accordion-item .accordion-item-title {
+        font-size: 18px; /* Ajusta o tamanho do título */
+    }
+
+    .accordion-item .accordion-item-desc {
+        font-size: 16px; /* Ajusta o tamanho do texto */
+    }
+
+    .accordion-item .icon {
+        font-size: 16px; /* Ajusta o tamanho do ícone */
+    }
+}
